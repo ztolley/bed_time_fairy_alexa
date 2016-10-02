@@ -1,0 +1,44 @@
+{
+  "intents": [
+    {
+      "intent": "childlist",
+      "slots": []
+    },
+    {
+      "intent": "addChild",
+      "slots": [
+        {
+          "name": "MEMBER",
+          "type": "FAMILY_MEMBER"
+        }
+      ]
+    },
+    {
+      "intent": "setChildName",
+      "slots": [
+        {
+          "name": "CHILDNAME",
+          "type": "AMAZON.GB_FIRST_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "setBedTime",
+      "slots": [
+        {
+          "name": "BEDTIME",
+          "type": "TIME"
+        }
+      ]
+    },
+    {
+      "intent": "getBedTime",
+      "slots": [
+        {
+          "name": "CHILDNAME",
+          "type": "AMAZON.GB_FIRST_NAME"
+        }
+      ]
+    }
+  ]
+}

@@ -1,6 +1,19 @@
 'use strict';
-let dynasty = require('dynasty')({});
+let dynasty = require('dynasty')({region: 'eu-west-1'});
 const BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
+
+if (process.env.DEBUG) {
+  const localUrl = 'http://localhost:4000';
+  const localCredentials = {
+    region: 'us-east-1',
+    accessKeyId: 'fake',
+    secretAccessKey: 'fake'
+  };
+  dynasty = require('dynasty')(localCredentials, localUrl);
+}
+
+
+
 let bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
 
 function setDynasty(newDynasty) {
@@ -115,6 +128,9 @@ function updateChild(userId, childName, bedTime) {
       } else {
         throw { code: 404, description: 'Cannot find user' };
       }
+    })
+    .catch((error) => {
+      throw { code: 404, description: 'Cannot find user' };
     });
 }
 
@@ -140,24 +156,40 @@ function removeChild(userId, childName) {
     });
 }
 
-function createTable() {
-  return dynasty.list()
-    .then((resp) => {
-      const found = resp.TableNames.filter((item) => item.toLowerCase() == BEDTIMEFAIRY_DATA_TABLE_NAME);
-      if (found.length === 0) {
-        return dynasty.create(BEDTIMEFAIRY_DATA_TABLE_NAME, {
-          key_schema: {
-            hash: ['userId', 'string']
-          }
-        })
-        .then(() => {
-          bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
-          return bedTimeFairyTable;
-        });
+function findChild(userId, childName) {
+  return getChildren(userId)
+    .then((children) => {
+      for (let child of children) {
+        if (child.fullName.toLocaleLowerCase() === childName.toLocaleLowerCase()) {
+          return child;
+        }
       }
+
+      return null;
     });
 }
 
+
+function createTable() {
+  return dynasty.create(BEDTIMEFAIRY_DATA_TABLE_NAME, {
+    key_schema: {
+      hash: ['userId', 'string']
+    }
+  })
+    .then(() => {
+      bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
+      return bedTimeFairyTable;
+    });
+
+}
+
 module.exports = {
-  getChildren, createTable, addChild, updateChild, removeChild, getBedTime, setDynasty
+  getChildren,
+  createTable,
+  addChild,
+  updateChild,
+  removeChild,
+  getBedTime,
+  setDynasty,
+  findChild
 };

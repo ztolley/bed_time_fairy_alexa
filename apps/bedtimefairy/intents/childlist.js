@@ -1,7 +1,7 @@
 'use strict';
 
 const childDataHelper = require('../data/childdatahelper');
-
+const timeUtils = require('../lib/timeutils');
 const criteria = {
   'utterances': [
     'list {|all|my|our} children {|living in this house|living here|here}'
@@ -16,7 +16,8 @@ function action(req, res) {
       res.say(prompt).reprompt(prompt).shouldEndSession(true);
       res.send();
     })
-    .catch(() => {
+    .catch((e) => {
+      console.log(e);
       let prompt = generateNoChildList();
       res.say(prompt).reprompt(prompt).shouldEndSession(true);
       res.send();
@@ -40,11 +41,11 @@ function generateMultipleChildListPhrase(children) {
   for (let pos = 0; pos < children.length; pos += 1) {
     const child = children[pos];
     if (pos == children.length - 1) {
-      prompt += `and ${child.name}.`
+      prompt += `and ${child.fullName}.`
     } else if (pos == children.length - 2) {
-      prompt += `${child.name} `
+      prompt += `${child.fullName} `
     } else {
-      prompt += `${child.name}, `
+      prompt += `${child.fullName}, `
     }
 
   }
@@ -53,7 +54,7 @@ function generateMultipleChildListPhrase(children) {
 }
 
 function generateSingleChildList(child) {
-  return `You have added one child, ${child.name}.${child.name} goes to bed at ${child.bedTime}`;
+  return `You have added one child, ${child.fullName}. ${child.fullName} goes to bed at ${timeUtils.readableTime(child.bedTime)}.`;
 }
 
 function generateNoChildList() {

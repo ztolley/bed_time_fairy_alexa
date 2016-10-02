@@ -30,6 +30,10 @@ describe('Child data helper', () => {
       .then((table) => {
         bedTimeFairyTable = table;
         done();
+      })
+      .catch((error) => {
+        console.log(error);
+        done();
       });
   });
 
@@ -39,7 +43,6 @@ describe('Child data helper', () => {
       it('Should create an entry with the user id if you are adding a child for first time', (done) => {
         childDataHelper.addChild('1234', 'Fred', 1930)
           .then(() => {
-            console.log('back in test');
             return bedTimeFairyTable.scan();
           })
           .then((allrecords) => {
