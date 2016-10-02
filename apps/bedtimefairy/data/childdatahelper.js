@@ -1,15 +1,11 @@
 'use strict';
-const localUrl = 'http://localhost:4000';
-const localCredentials = {
-  region: 'us-east-1',
-  accessKeyId: 'fake',
-  secretAccessKey: 'fake'
-};
-const localDynasty = require('dynasty')(localCredentials, localUrl);
-const dynasty = localDynasty;
+let dynasty = require('dynasty')({});
 const BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
 let bedTimeFairyTable;
 
+function setDynasty(newDynasty) {
+  dynasty = newDynasty;
+}
 
 function getChildren(userId) {
   return findUser(userId)
@@ -156,13 +152,12 @@ function createTable() {
         })
         .then(() => {
           bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
+          return bedTimeFairyTable;
         });
       }
     });
 }
 
-createTable();
-
 module.exports = {
-  getChildren, createTable, addChild, updateChild, removeChild, getBedTime
+  getChildren, createTable, addChild, updateChild, removeChild, getBedTime, setDynasty
 };

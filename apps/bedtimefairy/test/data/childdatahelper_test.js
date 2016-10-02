@@ -4,59 +4,36 @@ const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
 const expect = chai.expect;
 const childDataHelper = require('../../data/childdatahelper');
+const BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
 
-chai.use(chaiAsPromised);
-
-var localUrl = 'http://localhost:4000';
-var localCredentials = {
+const localUrl = 'http://localhost:4000';
+const localCredentials = {
   region: 'us-east-1',
   accessKeyId: 'fake',
   secretAccessKey: 'fake'
 };
-var localDynasty = require('dynasty')(localCredentials, localUrl);
-var dynasty = localDynasty;
-var BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
+const dynasty = require('dynasty')(localCredentials, localUrl);
 
+chai.use(chaiAsPromised);
 
 describe('Child data helper', () => {
+  let bedTimeFairyTable;
 
-  describe("Sets up a table", () => {
+  beforeEach((done) => {
+    childDataHelper.setDynasty(dynasty);
 
-    beforeEach((done) => {
-      dynasty
-        .drop(BEDTIMEFAIRY_DATA_TABLE_NAME)
-        .then(() => {
-          done();
-        });
-    });
-
-    it('should add a table to dynamo', (done) => {
-      childDataHelper.createTable()
-        .then(() => {
-          return dynasty.list();
-        })
-        .then(function (resp) {
-          expect(resp.TableNames).to.include(BEDTIMEFAIRY_DATA_TABLE_NAME);
-          done();
-        })
-    })
+    dynasty
+      .drop(BEDTIMEFAIRY_DATA_TABLE_NAME)
+      .then(() => {
+        return childDataHelper.createTable();
+      })
+      .then((table) => {
+        bedTimeFairyTable = table;
+        done();
+      });
   });
 
   describe("Allows you to edit children", () => {
-
-    let bedTimeFairyTable;
-
-    beforeEach((done) => {
-      dynasty
-        .drop(BEDTIMEFAIRY_DATA_TABLE_NAME)
-        .then(() => {
-          return childDataHelper.createTable();
-        })
-        .then(() => {
-          bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
-          done();
-        });
-    });
 
     context('When the database is empty', () => {
       it('Should create an entry with the user id if you are adding a child for first time', (done) => {
