@@ -1,7 +1,7 @@
 'use strict';
 let dynasty = require('dynasty')({});
 const BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
-let bedTimeFairyTable;
+let bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
 
 function setDynasty(newDynasty) {
   dynasty = newDynasty;

@@ -6,7 +6,8 @@
   "author": "Zac Tolley",
   "license": "ISC",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "build": "build"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "dependencies": {
     "alexa-app": "^2.3.4",
+    "archiver": "^1.1.0",
     "dynasty": "^0.2.6",
     "request": "^2.75.0",
     "request-promise": "^4.1.1"

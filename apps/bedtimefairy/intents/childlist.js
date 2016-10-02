@@ -9,17 +9,20 @@ const criteria = {
 };
 
 function action(req, res) {
-  var prompt;
-  try {
-    var children = childDataHelper.getChildren(req.data.session.user.userId);
-    prompt = getChildListPhrase(children);
-  } catch(e) {
-    console.log(e);
-    prompt = 'Error, unable to comply.';
-  }
 
-  res.say(prompt).reprompt(prompt).shouldEndSession(true);
-  return true;
+  childDataHelper.getChildren(req.data.session.user.userId)
+    .then((children) => {
+      let prompt = getChildListPhrase(children);
+      res.say(prompt).reprompt(prompt).shouldEndSession(true);
+      res.send();
+    })
+    .catch(() => {
+      let prompt = generateNoChildList();
+      res.say(prompt).reprompt(prompt).shouldEndSession(true);
+      res.send();
+  });
+
+  return false;
 }
 
 function getChildListPhrase(children) {
