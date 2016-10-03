@@ -1,3 +1,5 @@
+'use strict';
+
 var fs = require('fs');
 var archiver = require('archiver');
 var output = fs.createWriteStream(__dirname + '/bedtimelambda.zip');
@@ -17,6 +19,7 @@ archive.pipe(output);
 archive.directory('data', true, { date: new Date() });
 archive.directory('intents', true, { date: new Date() });
 archive.directory('node_modules', true, { date: new Date() });
+archive.directory('lib', true, { date: new Date() });
 archive.file('index.js', { date: new Date() });
 archive.file('package.json', { date: new Date() });
 

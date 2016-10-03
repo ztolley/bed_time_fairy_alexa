@@ -1,0 +1,46 @@
+childlist	list children
+childlist	list all children
+childlist	list my children
+childlist	list our children
+childlist	list children living in this house
+childlist	list all children living in this house
+childlist	list my children living in this house
+childlist	list our children living in this house
+childlist	list children living here
+childlist	list all children living here
+childlist	list my children living here
+childlist	list our children living here
+childlist	list children here
+childlist	list all children here
+childlist	list my children here
+childlist	list our children here
+addChild	add a new child
+addChild	please add a new child
+addChild	add new child
+addChild	please add new child
+addChild	add a child
+addChild	please add a child
+addChild	add child
+addChild	please add child
+addChild	add a new person
+addChild	please add a new person
+addChild	add new person
+addChild	please add new person
+addChild	add a person
+addChild	please add a person
+addChild	add person
+addChild	please add person
+addChild	add my {MEMBER} bedtime
+addChild	please add my {MEMBER} bedtime
+setChildName	his name's {CHILDNAME}
+setChildName	her name's {CHILDNAME}
+setChildName	his name is {CHILDNAME}
+setChildName	her name is {CHILDNAME}
+setChildName	{CHILDNAME}
+setBedTime	her bedtime is {BEDTIME}
+setBedTime	his bedtime is {BEDTIME}
+setBedTime  {BedTime}
+askBedTime	When is {CHILDNAME} bed time
+askBedTime	When does {CHILDNAME} go to bed
+askBedTime	Is it {CHILDNAME} bed time
+askBedTime	Is it {CHILDNAME} time for bed
