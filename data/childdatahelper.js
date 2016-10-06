@@ -173,16 +173,23 @@ function findChild(userId, childName) {
 
 
 function createTable() {
-  return dynasty.create(BEDTIMEFAIRY_DATA_TABLE_NAME, {
-    key_schema: {
-      hash: ['userId', 'string']
-    }
-  })
+  return dynasty.list()
+    .then(function(resp) {
+      for (const tableName of resp.TableNames) {
+        if (tableName === BEDTIMEFAIRY_DATA_TABLE_NAME) {
+          return;
+        }
+      }
+      return dynasty.create(BEDTIMEFAIRY_DATA_TABLE_NAME, {
+        key_schema: {
+          hash: ['userId', 'string']
+        }
+      })
+    })
     .then(() => {
       bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
       return bedTimeFairyTable;
     });
-
 }
 
 module.exports = {
