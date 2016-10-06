@@ -58,17 +58,17 @@ function action(req, res) {
             .say(`It looks like you have already added a bed time for ${childName}.`)
             .send();
         } else {
-          handleError(error);
+          handleError(error, res);
         }
       });
 
   } catch(error) {
-    handleError(error)
+    handleError(error, res)
   }
   return false;
 }
 
-function handleError(error) {
+function handleError(error, res) {
   console.log(error);
   res
     .shouldEndSession(true)

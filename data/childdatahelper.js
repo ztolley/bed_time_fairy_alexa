@@ -3,13 +3,15 @@ let dynasty = require('dynasty')({region: 'eu-west-1'});
 const BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
 
 if (process.env.DEBUG) {
-  const localUrl = 'http://localhost:4000';
+
+  const localUrl = 'http://dynamodb:8000';
   const localCredentials = {
     region: 'us-east-1',
     accessKeyId: 'fake',
     secretAccessKey: 'fake'
   };
   dynasty = require('dynasty')(localCredentials, localUrl);
+  createTable();
 }
 
 
