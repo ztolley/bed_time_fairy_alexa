@@ -1,9 +1,8 @@
 'use strict';
 let dynasty = require('dynasty')({region: 'eu-west-1'});
-const BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
+let BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
 
 if (process.env.DEBUG) {
-
   const localUrl = 'http://dynamodb:8000';
   const localCredentials = {
     region: 'us-east-1',
@@ -14,7 +13,16 @@ if (process.env.DEBUG) {
   createTable();
 }
 
-
+if (process.env.TEST) {
+  const localUrl = 'http://localhost:4000';
+  const localCredentials = {
+    region: 'us-east-1',
+    accessKeyId: 'fake',
+    secretAccessKey: 'fake'
+  };
+  dynasty = require('dynasty')(localCredentials, localUrl);
+  BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy_test';
+}
 
 let bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
 
@@ -32,7 +40,7 @@ function getChildren(userId) {
 
 function getBedTime(userId, childName) {
   function containsName(child) {
-    return child.fullName.toLocaleLowerCase() === childName.toLocaleLowerCase();
+    return childName.toLocaleLowerCase().indexOf(child.fullName.toLocaleLowerCase()) !== -1;
   }
 
   return findUser(userId)
@@ -171,7 +179,6 @@ function findChild(userId, childName) {
     });
 }
 
-
 function createTable() {
   return dynasty.list()
     .then(function(resp) {
@@ -192,9 +199,22 @@ function createTable() {
     });
 }
 
+function dropTable() {
+  return dynasty.drop(BEDTIMEFAIRY_DATA_TABLE_NAME)
+    .then(() => {
+      return;
+    })
+    .catch((error) => {
+      console.log(error);
+      return;
+    });
+}
+
+
 module.exports = {
   getChildren,
   createTable,
+  dropTable,
   addChild,
   updateChild,
   removeChild,

@@ -39,8 +39,10 @@ setChildName	her name is {CHILDNAME}
 setChildName	{CHILDNAME}
 setBedTime	her bedtime is {BEDTIME}
 setBedTime	his bedtime is {BEDTIME}
-setBedTime  {BedTime}
-askBedTime	When is {CHILDNAME} bed time
-askBedTime	When does {CHILDNAME} go to bed
-askBedTime	Is it {CHILDNAME} bed time
-askBedTime	Is it {CHILDNAME} time for bed
+setBedTime  {BEDTIME}
+getBedTime	When is {CHILDNAME} bed time
+getBedTime	When does {CHILDNAME} go to bed
+isItBedTime	Is it {CHILDNAME} bed time yet
+isItBedTime	Is it {CHILDNAME} bed time
+isItBedTime	Is it {CHILDNAME} time for bed yet
+isItBedTime	Is it {CHILDNAME} time for bed

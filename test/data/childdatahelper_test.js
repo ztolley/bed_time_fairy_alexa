@@ -1,18 +1,11 @@
 'use strict';
+process.env.TEST = true;
 
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');
+chai.use(chaiAsPromised);
 const expect = chai.expect;
 const childDataHelper = require('../../data/childdatahelper');
-const BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy';
-
-const localUrl = 'http://localhost:4000';
-const localCredentials = {
-  region: 'us-east-1',
-  accessKeyId: 'fake',
-  secretAccessKey: 'fake'
-};
-const dynasty = require('dynasty')(localCredentials, localUrl);
 
 chai.use(chaiAsPromised);
 
@@ -20,10 +13,7 @@ describe('Child data helper', () => {
   let bedTimeFairyTable;
 
   beforeEach((done) => {
-    childDataHelper.setDynasty(dynasty);
-
-    dynasty
-      .drop(BEDTIMEFAIRY_DATA_TABLE_NAME)
+    childDataHelper.dropTable()
       .then(() => {
         return childDataHelper.createTable();
       })
@@ -34,11 +24,10 @@ describe('Child data helper', () => {
       .catch((error) => {
         console.log(error);
         done();
-      });
+      })
   });
 
   describe("Allows you to edit children", () => {
-
     context('When the database is empty', () => {
       it('Should create an entry with the user id if you are adding a child for first time', (done) => {
         childDataHelper.addChild('1234', 'Fred', 1930)
@@ -154,12 +143,10 @@ describe('Child data helper', () => {
           });
       });
     });
-
   });
 
   describe("Lookup child data", () => {
     beforeEach((done) => {
-      let bedTimeFairyTable = dynasty.table(BEDTIMEFAIRY_DATA_TABLE_NAME);
       bedTimeFairyTable
         .insert({
           userId: '1234',
@@ -179,6 +166,13 @@ describe('Child data helper', () => {
     });
     it("Should return the bed time for a given child name for a user", (done) => {
       childDataHelper.getBedTime('1234', 'Jade')
+        .then((bedTime) => {
+          expect(bedTime).to.eq(2000);
+          done();
+        });
+    });
+    it("Should return the bed time for a child given a plural match", (done) => {
+      childDataHelper.getBedTime('1234', 'Jades')
         .then((bedTime) => {
           expect(bedTime).to.eq(2000);
           done();
@@ -216,4 +210,3 @@ describe('Child data helper', () => {
     });
   });
 });
-
