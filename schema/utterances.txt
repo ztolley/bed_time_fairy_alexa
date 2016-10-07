@@ -46,3 +46,35 @@ isItBedTime	Is it {CHILDNAME} bed time yet
 isItBedTime	Is it {CHILDNAME} bed time
 isItBedTime	Is it {CHILDNAME} time for bed yet
 isItBedTime	Is it {CHILDNAME} time for bed
+removeAll	delete children
+removeAll	remove children
+removeAll	delete all children
+removeAll	remove all children
+removeAll	delete my children
+removeAll	remove my children
+removeAll	delete our children
+removeAll	remove our children
+removeAll	delete children living in this house
+removeAll	remove children living in this house
+removeAll	delete all children living in this house
+removeAll	remove all children living in this house
+removeAll	delete my children living in this house
+removeAll	remove my children living in this house
+removeAll	delete our children living in this house
+removeAll	remove our children living in this house
+removeAll	delete children living here
+removeAll	remove children living here
+removeAll	delete all children living here
+removeAll	remove all children living here
+removeAll	delete my children living here
+removeAll	remove my children living here
+removeAll	delete our children living here
+removeAll	remove our children living here
+removeAll	delete children here
+removeAll	remove children here
+removeAll	delete all children here
+removeAll	remove all children here
+removeAll	delete my children here
+removeAll	remove my children here
+removeAll	delete our children here
+removeAll	remove our children here
