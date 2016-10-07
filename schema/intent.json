@@ -39,6 +39,15 @@
           "type": "AMAZON.GB_FIRST_NAME"
         }
       ]
+    },
+    {
+      "intent": "isItBedTime",
+      "slots": [
+        {
+          "name": "CHILDNAME",
+          "type": "AMAZON.GB_FIRST_NAME"
+        }
+      ]
     }
   ]
 }
