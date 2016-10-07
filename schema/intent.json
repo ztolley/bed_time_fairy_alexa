@@ -48,6 +48,10 @@
           "type": "AMAZON.GB_FIRST_NAME"
         }
       ]
+    },
+    {
+      "intent": "removeAll",
+      "slots": []
     }
   ]
 }

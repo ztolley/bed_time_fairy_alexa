@@ -11,6 +11,8 @@ const welcome = require('./intents/welcome');
 const askChildBedtime = require('./intents/getchildbedtime');
 const getBedTime = require('./intents/getchildbedtime');
 const isItBedTime = require('./intents/isitbedtime');
+const removeAll = require('./intents/removeall');
+
 
 app.launch(welcome);
 
@@ -21,6 +23,7 @@ app.intent('setBedTime', setBedTime.criteria, setBedTime.action);
 app.intent('askBedTime', askChildBedtime.criteria, askChildBedtime.action);
 app.intent('getBedTime', getBedTime.criteria, getBedTime.action);
 app.intent('isItBedTime', isItBedTime.criteria, isItBedTime.action);
+app.intent('removeAll', removeAll.criteria, removeAll.action);
 
 app.pre(function(req, res) {
   dataHelper.createTable();

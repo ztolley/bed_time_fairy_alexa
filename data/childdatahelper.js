@@ -166,6 +166,17 @@ function removeChild(userId, childName) {
     });
 }
 
+function removeAllChildren(userId) {
+  const user = {
+    children:[]
+  };
+
+  return bedTimeFairyTable.update(userId, user)
+    .then((resp) => {
+      return resp;
+    });
+}
+
 function findChild(userId, childName) {
   return getChildren(userId)
     .then((children) => {
@@ -218,6 +229,7 @@ module.exports = {
   addChild,
   updateChild,
   removeChild,
+  removeAllChildren,
   getBedTime,
   setDynasty,
   findChild
