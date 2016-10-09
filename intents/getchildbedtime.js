@@ -16,12 +16,27 @@ function nothingFound(res, childName) {
   res.send();
 }
 
+function cleanName(childName) {
+
+  childName = childName.toLocaleLowerCase();
+  if (childName.charAt(childName.length-1) === 's') {
+    childName = childName.substr(0, childName.length-1);
+  }
+  childName = childName.charAt(0).toUpperCase() + childName.slice(1);
+
+  return childName;
+}
+
+
 function action(req, res) {
 
   let childName = req.slot('CHILDNAME');
   if (!childName) return;
 
   try {
+
+    childName = cleanName(childName);
+
     childDataHelper.findChild(req.data.session.user.userId, childName)
       .then((child) => {
         if (child) {
