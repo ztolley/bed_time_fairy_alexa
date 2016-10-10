@@ -1,13 +1,15 @@
 'use strict';
 let childDataHelper = require('../data/childdatahelper');
 const timeUtils = require('../lib/timeutils');
+const nameUtils = require('../lib/nameutils');
+const moment = require('moment');
 
 
 const criteria = {
   'slots': {'CHILDNAME': 'AMAZON.GB_FIRST_NAME'},
   'utterances': [
-    "Is it {CHILDNAME}'s bed time {yet|}",
-    "Is it {CHILDNAME}'s time for bed {yet|}"
+    "Is it {CHILDNAME} bed time {yet|}",
+    "Is it {CHILDNAME} time for bed {yet|}"
   ]
 };
 
@@ -21,6 +23,8 @@ function action(req, res) {
   let childName = req.slot('CHILDNAME');
   if (!childName) return;
 
+  childName = nameUtils.cleanName(childName);
+
   try {
     childDataHelper.findChild(req.data.session.user.userId, childName)
       .then((child) => {
@@ -29,7 +33,6 @@ function action(req, res) {
           let timeDif = timeUtils.timeFromNow(child.bedTime);
 
           if (timeDif < 0) {
-            console.log('past bed time');
             res.say(`It is past ${child.fullName}s bedtime.`).send();
           } else if (timeDif < 30) {
             res.say(`${child.fullName} must go to bed in ${timeDif} minutes.`).send();
@@ -41,7 +44,7 @@ function action(req, res) {
           nothingFound(res, childName);
         }
       })
-      .error((error) => {
+      .catch((error) => {
         console.log(error);
         nothingFound(res, childName);
       });
