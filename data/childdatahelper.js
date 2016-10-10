@@ -103,7 +103,7 @@ function addChildToUser(userId, childName, bedTime) {
     .then((result) => {
       return result;
     })
-    .error((error) => {
+    .catch((error) => {
       throw(error);
     });
 

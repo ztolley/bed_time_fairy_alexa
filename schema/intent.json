@@ -52,6 +52,15 @@
     {
       "intent": "removeAll",
       "slots": []
+    },
+    {
+      "intent": "removeChild",
+      "slots": [
+        {
+          "name": "CHILDNAME",
+          "type": "AMAZON.GB_FIRST_NAME"
+        }
+      ]
     }
   ]
 }

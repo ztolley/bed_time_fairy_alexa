@@ -41,7 +41,7 @@ function action(req, res) {
           nothingFound(res, childName);
         }
       })
-      .error((error) => {
+      .catch((error) => {
         console.log(error);
         nothingFound(res, childName);
       });
