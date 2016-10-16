@@ -26,6 +26,11 @@ describe('Is it bed time?', () => {
     expect(timeResult).to.eq('7:45pm');
   });
 
+  it('its 11am and child goes to bed at 19:00', () => {
+    const diff = timeUtils.timeDiff('10:00', '19:00');
+    expect(diff).to.eq(540);
+  });
+
 });
 
 

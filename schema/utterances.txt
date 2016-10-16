@@ -78,3 +78,11 @@ removeAll	delete my children here
 removeAll	remove my children here
 removeAll	delete our children here
 removeAll	remove our children here
+removeChild	please remove {CHILDNAME} bedtime
+removeChild	remove {CHILDNAME} bedtime
+removeChild	please delete {CHILDNAME} bedtime
+removeChild	delete {CHILDNAME} bedtime
+removeChild	please remove {CHILDNAME}
+removeChild	remove {CHILDNAME}
+removeChild	please delete {CHILDNAME}
+removeChild	delete {CHILDNAME}
