@@ -37,6 +37,7 @@ function action(req, res) {
     nothingFound(res, childName);
   }
 
+  return false;
 }
 
 module.exports = {
