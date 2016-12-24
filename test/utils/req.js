@@ -2,7 +2,7 @@
 
 
 function Req(slots) {
-  this.slots = slots;
+  this.slots = slots || {};
 }
 
 Req.prototype.data = {

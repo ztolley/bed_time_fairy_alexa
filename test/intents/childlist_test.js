@@ -17,14 +17,6 @@ describe('Child list intent', () => {
         expect(phrase).to.eq('You have not added any children yet.');
       });
     });
-    context('when there are children', () => {
-      const children = [
-
-      ]
-    });
   });
-
-
-
 });
 

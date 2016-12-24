@@ -14,11 +14,11 @@ function action(req, res) {
   let prompt;
 
   if (member === 'son' || member === 'sons') {
-    prompt = "Tell me your sons' name";
-  } else if (member == 'daughter' || member === 'daugters') {
-    prompt = "Tell me your daughters' name";
+    prompt = "Tell me your sons name";
+  } else if (member == 'daughter' || member === 'daughters') {
+    prompt = "Tell me your daughters name";
   } else {
-    prompt = "Tell me your childs' name";
+    prompt = "Tell me your childs name";
   }
   res
     .say(prompt)

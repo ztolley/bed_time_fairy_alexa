@@ -7,6 +7,7 @@ const criteria = {
   'utterances': ['{her bedtime is |his bedtime is|} {BEDTIME}']
 };
 const BEDTIME = 'BEDTIME';
+const simpleCard = require('../lib/cardutils').simpleCard;
 
 
 function action(req, res) {
@@ -41,6 +42,8 @@ function action(req, res) {
 
     const bedTime = timeUtils.makeAllTimesPM(req.slot('BEDTIME'));
 
+
+
     childDataHelper.addChild(
       req.data.session.user.userId,
       childName,
@@ -49,6 +52,7 @@ function action(req, res) {
         res
           .shouldEndSession(true)
           .say(`OK, I have set ${childName}'s bedtime to ${bedTime}`)
+          .card(simpleCard('Add child to bedtime fairy', `Added bedtime for ${childName} at ${bedTime}`))
           .send();
       })
       .catch((error) => {

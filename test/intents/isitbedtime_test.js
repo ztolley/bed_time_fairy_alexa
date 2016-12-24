@@ -38,6 +38,8 @@ describe('Is it bed time?', () => {
       const req = new Req({'CHILDNAME': 'Fred'});
       const res = new Res((state) => {
         expect(state.said).to.eq("Don't worry Fred, it's not bedtime yet.");
+        expect(state.card.title).to.eq('Is it Freds bedtime yet?');
+        expect(state.card.content).to.eq("Don't worry Fred, it's not bedtime yet.");
         done();
       });
 
@@ -52,6 +54,8 @@ describe('Is it bed time?', () => {
         const req = new Req({'CHILDNAME': 'Wilma'});
         const res = new Res((state) => {
           expect(state.said).to.eq("I'm sorry, I couldn't find anyone called Wilma");
+          expect(state.card.title).to.eq('Is it Wilmas bedtime yet?');
+          expect(state.card.content).to.eq("I'm sorry, I couldn't find anyone called Wilma");
           done();
         });
 
@@ -66,6 +70,8 @@ describe('Is it bed time?', () => {
         const req = new Req({'CHILDNAME': 'Fred'});
         const res = new Res((state) => {
           expect(state.said).to.eq("Fred must go to bed in 10 minutes.");
+          expect(state.card.title).to.eq('Is it Freds bedtime yet?');
+          expect(state.card.content).to.eq("Fred must go to bed in 10 minutes.");
           done();
         });
 
@@ -80,6 +86,8 @@ describe('Is it bed time?', () => {
         const req = new Req({'CHILDNAME': 'Fred'});
         const res = new Res((state) => {
           expect(state.said).to.eq("It is past Freds bedtime.");
+          expect(state.card.title).to.eq('Is it Freds bedtime yet?');
+          expect(state.card.content).to.eq("It is past Freds bedtime.");
           done();
         });
 

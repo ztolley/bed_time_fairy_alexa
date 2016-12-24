@@ -2,8 +2,7 @@
 let childDataHelper = require('../data/childdatahelper');
 const timeUtils = require('../lib/timeutils');
 const nameUtils = require('../lib/nameutils');
-const moment = require('moment');
-
+const simpleCard = require('../lib/cardutils').simpleCard;
 
 const criteria = {
   'slots': {'CHILDNAME': 'AMAZON.GB_FIRST_NAME'},
@@ -13,9 +12,12 @@ const criteria = {
   ]
 };
 
-function nothingFound(res, childName) {
-  res.say(`I'm sorry, I couldn't find anyone called ${childName}`);
-  res.send();
+function nothingFound(res, childName, question) {
+  let answer = `I'm sorry, I couldn't find anyone called ${childName}`;
+  res
+    .say(answer)
+    .card(simpleCard(question, answer))
+    .send();
 }
 
 function action(req, res) {
@@ -24,33 +26,39 @@ function action(req, res) {
   if (!childName) return;
 
   childName = nameUtils.cleanName(childName);
+  let question = `Is it ${childName}s bedtime yet?`;
 
   try {
     childDataHelper.findChild(req.data.session.user.userId, childName)
       .then((child) => {
         if (child) {
-
           let timeDif = timeUtils.timeFromNow(child.bedTime);
+          let answer;
 
           if (timeDif < 0) {
-            res.say(`It is past ${child.fullName}s bedtime.`).send();
+            answer = `It is past ${child.fullName}s bedtime.`;
           } else if (timeDif < 30) {
-            res.say(`${child.fullName} must go to bed in ${timeDif} minutes.`).send();
+            answer = `${child.fullName} must go to bed in ${timeDif} minutes.`;
           } else {
-            res.say(`Don't worry ${child.fullName}, it's not bedtime yet.`).send();
+            answer = `Don't worry ${child.fullName}, it's not bedtime yet.`;
           }
 
+          res
+            .say(answer)
+            .card(simpleCard(question, answer))
+            .send();
+
         } else {
-          nothingFound(res, childName);
+          nothingFound(res, childName, question);
         }
       })
       .catch((error) => {
         console.log(error);
-        nothingFound(res, childName);
+        nothingFound(res, childName, question);
       });
   } catch(error) {
     console.log(error);
-    nothingFound(res, childName);
+    nothingFound(res, childName, question);
   }
 
   return false;

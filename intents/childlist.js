@@ -7,13 +7,21 @@ const criteria = {
     'list {|all|my|our} children {|living in this house|living here|here}'
   ]
 };
+const simpleCard = require('../lib/cardutils').simpleCard;
+
 
 function action(req, res) {
 
   childDataHelper.getChildren(req.data.session.user.userId)
     .then((children) => {
       let prompt = getChildListPhrase(children);
-      res.say(prompt).reprompt(prompt).shouldEndSession(true);
+      res
+        .say(prompt)
+        .reprompt(prompt)
+        .card(simpleCard('List children in bedtime fairy', prompt))
+        .shouldEndSession(true)
+        .send()
+
       res.send();
     })
     .catch((e) => {

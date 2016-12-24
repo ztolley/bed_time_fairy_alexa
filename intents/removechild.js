@@ -1,6 +1,7 @@
 'use strict';
 const childDataHelper = require('../data/childdatahelper');
 const nameUtils = require('../lib/nameutils');
+const simpleCard = require('../lib/cardutils').simpleCard;
 
 const criteria = {
   'slots': {'CHILDNAME': 'AMAZON.GB_FIRST_NAME'},
@@ -9,15 +10,19 @@ const criteria = {
   ]
 };
 
-function nothingFound(res, childName) {
-  res.say(`I'm sorry, I couldn't find anyone called ${childName}.`);
-  res.send();
+function nothingFound(res, childName, question) {
+  let answer = `I'm sorry, I couldn't find anyone called ${childName}.`;
+  res
+    .say(answer)
+    .card(simpleCard(question, answer))
+    .send();
 }
 
 function action(req, res) {
 
   let childName = req.slot('CHILDNAME');
   if (!childName) return;
+  let question = `Remove ${childName}.`;
 
   try {
 
@@ -25,16 +30,19 @@ function action(req, res) {
 
     return childDataHelper.removeChild(req.data.session.user.userId, childName)
       .then(() => {
-        res.say(`I have removed the bedtime slot for ${childName}.`)
+        let answer = `I have removed the bedtime slot for ${childName}.`;
+        res
+          .say(answer)
+          .card(simpleCard(question, answer))
           .send();
       })
       .catch((error) => {
         console.log(error);
-        nothingFound(res, childName);
+        nothingFound(res, childName, question);
       });
   } catch(error) {
     console.log(error);
-    nothingFound(res, childName);
+    nothingFound(res, childName, question);
   }
 
   return false;
