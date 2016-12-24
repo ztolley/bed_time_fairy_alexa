@@ -23,7 +23,7 @@ function action(req, res) {
 
     childName = nameUtils.cleanName(childName);
 
-    childDataHelper.removeChild(req.data.session.user.userId, childName)
+    return childDataHelper.removeChild(req.data.session.user.userId, childName)
       .then(() => {
         res.say(`I have removed the bedtime slot for ${childName}.`)
           .send();
@@ -38,7 +38,6 @@ function action(req, res) {
   }
 
   return false;
-
 }
 
 module.exports = {
