@@ -6,7 +6,7 @@
   "author": "Zac Tolley",
   "license": "ISC",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha test/**/*.test.js",
     "build": "build"
   },
   "repository": {
