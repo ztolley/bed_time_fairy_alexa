@@ -7,7 +7,8 @@
   "license": "ISC",
   "scripts": {
     "test": "mocha test/**/*.test.js",
-    "build": "build"
+    "build": "build",
+    "lint": "eslint data/**/*.js intents/**/*.js lib/**/*.js test/**/*.js"
   },
   "repository": {
     "type": "git",
@@ -27,6 +28,23 @@
   "devDependencies": {
     "chai": "^3.5.0",
     "chai-as-promised": "^6.0.0",
+    "eslint": "^3.12.2",
+    "eslint-config-standard": "^6.2.1",
+    "eslint-config-standard-jsx": "^3.2.0",
+    "eslint-plugin-promise": "^3.4.0",
+    "eslint-plugin-react": "^6.8.0",
+    "eslint-plugin-standard": "^2.0.1",
     "mocha": "^3.1.0"
+  },
+  "standard": {
+    "globals": [
+      "afterEach",
+      "assert",
+      "beforeEach",
+      "describe",
+      "es",
+      "expect",
+      "it"
+    ]
   }
 }

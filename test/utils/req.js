@@ -1,8 +1,7 @@
-'use strict';
+'use strict'
 
-
-function Req(slots) {
-  this.slots = slots || {};
+function Req (slots) {
+  this.slots = slots || {}
 }
 
 Req.prototype.data = {
@@ -11,10 +10,10 @@ Req.prototype.data = {
       userId: '1234'
     }
   }
-};
+}
 
-Req.prototype.slot = function(slotName) {
-  return this.slots[slotName];
-};
+Req.prototype.slot = function (slotName) {
+  return this.slots[slotName]
+}
 
-module.exports = Req;
+module.exports = Req
