@@ -2,14 +2,17 @@
 
 function Req (slots) {
   this.slots = slots || {}
-}
-
-Req.prototype.data = {
-  session: {
-    user: {
-      userId: '1234'
+  this.data = {
+    session: {
+      user: {
+        userId: '1234'
+      }
     }
   }
+}
+
+Req.prototype.session = function (key, value) {
+  this.data.session[key] = value
 }
 
 Req.prototype.slot = function (slotName) {

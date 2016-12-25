@@ -1,4 +1,6 @@
 'use strict'
+const ErrorWithCode = require('../lib/errorwithcode')
+
 let dynasty = require('dynasty')({region: 'eu-west-1'})
 let BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy'
 
@@ -33,7 +35,7 @@ function setDynasty (newDynasty) {
 function getChildren (userId) {
   return findUser(userId)
     .then((user) => {
-      if (!user) throw new Error({code: 404, description: 'Unable to find user'})
+      if (!user) throw new ErrorWithCode('Unable to find user', 404)
       return user.children
     })
 }
@@ -45,9 +47,9 @@ function getBedTime (userId, childName) {
 
   return findUser(userId)
     .then((user) => {
-      if (!user) throw new Error({code: 404, description: 'Unable to find user'})
+      if (!user) throw new ErrorWithCode('Unable to find user', 404)
       const filtered = user.children.filter(containsName)
-      if (filtered.length === 0) throw new Error({code: 404, description: 'Unable to find child'})
+      if (filtered.length === 0) throw new ErrorWithCode('Unable to find child', 404)
       return filtered[0].bedTime
     })
 }
@@ -64,7 +66,7 @@ function updateChildInUser (user, childName, bedTime) {
 
   // If the name is already in our list, return error
   if (user.children.filter(containsName).length === 0) {
-    throw new Error({code: 404, description: 'Child not found for this user'})
+    throw new ErrorWithCode('Child not found for this user', 404)
   } else {
     user.children = user.children.map((child) => {
       if (containsName(child)) {
@@ -96,15 +98,12 @@ function addChildToUser (userId, childName, bedTime) {
       if (children.length === 0 || children.filter(containsName).length === 0) {
         children.push({fullName: childName, bedTime})
       } else {
-        throw new Error({code: 409, description: 'Child with that name already exists'})
+        throw new ErrorWithCode('Child with that name already exists', 409)
       }
       return bedTimeFairyTable.update(userId, { children })
     })
     .then((result) => {
       return result
-    })
-    .catch((error) => {
-      throw new Error(error)
     })
 }
 
@@ -135,11 +134,8 @@ function updateChild (userId, childName, bedTime) {
       if (record) {
         return updateChildInUser(record, childName, bedTime)
       } else {
-        throw new Error({code: 404, description: 'Cannot find user'})
+        throw new ErrorWithCode('Cannot find user', 404)
       }
-    })
-    .catch(() => {
-      throw new Error({code: 404, description: 'Cannot find user'})
     })
 }
 
@@ -152,7 +148,7 @@ function removeChild (userId, childName) {
       delete user.userId
 
       if (user.children.filter(child => containsName(child)).length === 0) {
-        throw new Error({code: 404, description: 'Unable to delete, child name not found'})
+        throw new ErrorWithCode('Unable to delete, child name not found', 404)
       }
 
       user.children = user.children.filter(child => !containsName(child))

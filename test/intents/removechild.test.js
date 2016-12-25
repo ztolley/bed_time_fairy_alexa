@@ -6,13 +6,13 @@ const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 const expect = chai.expect
-const childDataHelper = require('../../data/childdatahelper')
+const childDataHelper = require('../../src/data/childdatahelper')
 
-const removeChildIntent = require('../../intents/removechild')
+const removeChildIntent = require('../../src/intents/removechild')
 const Req = require('../utils/req')
 const Res = require('../utils/res')
 
-describe('Remove child', () => {
+describe('Remove child intent', () => {
   beforeEach((done) => {
     childDataHelper.dropTable()
       .then(() => {

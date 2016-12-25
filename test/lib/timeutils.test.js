@@ -6,7 +6,7 @@ const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 const expect = chai.expect
-const timeUtils = require('../../lib/timeutils')
+const timeUtils = require('../../src/lib/timeutils')
 
 describe('Is it bed time?', () => {
   it('should return the right time for 7 oclock', () => {

@@ -57,7 +57,7 @@ function timeFromNow (time) {
 }
 
 function convertToMins (time) {
-  if (!time || time.length < 5 || time.indexOf(':') === -1) {
+  if (!time || time.indexOf(':') === -1) {
     return 99999
   }
 

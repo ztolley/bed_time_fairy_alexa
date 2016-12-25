@@ -7,7 +7,7 @@ const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 const expect = chai.expect
-const childDataHelper = require('../../data/childdatahelper')
+const childDataHelper = require('../../src/data/childdatahelper')
 
 chai.use(chaiAsPromised)
 
@@ -45,6 +45,10 @@ describe('Child data helper', () => {
               bedTime: 1930
             })
             done()
+          })
+          .catch((error) => {
+            console.log(error);
+            expect(false).to.eq(false);
           })
       })
       it('Should return an error saying no child found if you try to edit a child', (done) => {

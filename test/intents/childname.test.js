@@ -7,15 +7,17 @@ const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 const expect = chai.expect
 
-const childNameIntent = require('../../intents/childname')
+const childNameIntent = require('../../src/intents/childname')
 const Req = require('../utils/req')
 const Res = require('../utils/res')
 
-describe('Is it bed time?', () => {
+describe('Child name intent', () => {
   it('Should set the child name session variable', (done) => {
     const req = new Req({'CHILDNAME': 'Leroy'})
+    req.session('journeyName', 'ADDCHILD')
     const res = new Res((state) => {
-      expect(state.session.childName).to.eq('Leroy')
+      const childName = state.session.childName
+      expect(childName).to.eq('Leroy')
       done()
     })
 
@@ -24,6 +26,8 @@ describe('Is it bed time?', () => {
 
   it('Should say it added the child name', (done) => {
     const req = new Req({'CHILDNAME': 'Leroy'})
+    req.session('journeyName', 'ADDCHILD')
+
     const res = new Res((state) => {
       expect(state.said).to.eq('What time does Leroy go to bed?')
       done()

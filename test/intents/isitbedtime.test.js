@@ -6,14 +6,14 @@ const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 const expect = chai.expect
-const childDataHelper = require('../../data/childdatahelper')
+const childDataHelper = require('../../src/data/childdatahelper')
 
-const isItBedTimeIntent = require('../../intents/isitbedtime')
+const isItBedTimeIntent = require('../../src/intents/isitbedtime')
 const Req = require('../utils/req')
 const Res = require('../utils/res')
 const moment = require('moment')
 
-describe('Is it bed time?', () => {
+describe('Is it bed time intent', () => {
   beforeEach((done) => {
     childDataHelper.dropTable()
       .then(() => {

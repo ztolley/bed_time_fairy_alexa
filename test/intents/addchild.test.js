@@ -7,11 +7,11 @@ const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 const expect = chai.expect
 
-const addChildintent = require('../../intents/addchild')
+const addChildintent = require('../../src/intents/addchild')
 const Req = require('../utils/req')
 const Res = require('../utils/res')
 
-describe('Is it bed time?', () => {
+describe('Add child intent', () => {
   it('Handle when you wish to add your son', (done) => {
     const req = new Req({'MEMBER': 'son'})
     const res = new Res((state) => {
@@ -39,6 +39,5 @@ describe('Is it bed time?', () => {
 
     addChildintent.action(req, res)
   })
-
   it('should set a session variable to start getting child details')
 })

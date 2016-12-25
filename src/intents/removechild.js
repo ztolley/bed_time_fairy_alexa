@@ -26,7 +26,7 @@ function action (req, res) {
   try {
     childName = nameUtils.cleanName(childName)
 
-    return childDataHelper.removeChild(req.data.session.user.userId, childName)
+    childDataHelper.removeChild(req.data.session.user.userId, childName)
       .then(() => {
         let answer = `I have removed the bedtime slot for ${childName}.`
         res

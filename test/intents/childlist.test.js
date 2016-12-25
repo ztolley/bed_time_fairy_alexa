@@ -5,7 +5,7 @@ const chai = require('chai')
 const chaiAsPromised = require('chai-as-promised')
 const expect = chai.expect
 
-const childlist = require('../../intents/childlist')
+const childlist = require('../../src/intents/childlist')
 
 chai.use(chaiAsPromised)
 
