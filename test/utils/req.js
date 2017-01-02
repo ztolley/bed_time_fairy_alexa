@@ -1,20 +1,22 @@
-'use strict';
+'use strict'
 
-
-function Req(slots) {
-  this.slots = slots;
-}
-
-Req.prototype.data = {
-  session: {
-    user: {
-      userId: '1234'
+function Req (slots) {
+  this.slots = slots || {}
+  this.data = {
+    session: {
+      user: {
+        userId: '1234'
+      }
     }
   }
-};
+}
 
-Req.prototype.slot = function(slotName) {
-  return this.slots[slotName];
-};
+Req.prototype.session = function (key, value) {
+  this.data.session[key] = value
+}
 
-module.exports = Req;
+Req.prototype.slot = function (slotName) {
+  return this.slots[slotName]
+}
+
+module.exports = Req

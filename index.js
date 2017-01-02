@@ -2,17 +2,17 @@
 
 const Alexa = require('alexa-app');
 const app = new Alexa.app('bedtimefairy');
-const childListIntent = require('./intents/childlist');
-const addChild = require('./intents/addchild');
-const dataHelper = require('./data/childdatahelper');
-const childName = require('./intents/childname');
-const setBedTime = require('./intents/setbedtime');
-const welcome = require('./intents/welcome');
-const askChildBedtime = require('./intents/getchildbedtime');
-const getBedTime = require('./intents/getchildbedtime');
-const isItBedTime = require('./intents/isitbedtime');
-const removeAll = require('./intents/removeall');
-const removeChild = require('./intents/removechild');
+const childListIntent = require('./src/intents/childlist');
+const addChild = require('./src/intents/addchild');
+const dataHelper = require('./src/data/childdatahelper');
+const childName = require('./src/intents/childname');
+const setBedTime = require('./src/intents/setbedtime');
+const welcome = require('./src/intents/welcome');
+const askChildBedtime = require('./src/intents/getchildbedtime');
+const getBedTime = require('./src/intents/getchildbedtime');
+const isItBedTime = require('./src/intents/isitbedtime');
+const removeAll = require('./src/intents/removeall');
+const removeChild = require('./src/intents/removechild');
 
 app.launch(welcome);
 
