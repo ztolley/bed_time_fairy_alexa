@@ -39,6 +39,8 @@ function action (req, res) {
 
     const bedTime = timeUtils.makeAllTimesPM(req.slot('BEDTIME'))
 
+    const readTime = timeUtils.readableTime(bedTime)
+
     childDataHelper.addChild(
       req.data.session.user.userId,
       childName,
@@ -46,8 +48,8 @@ function action (req, res) {
       .then(() => {
         res
           .shouldEndSession(true)
-          .say(`OK, I have set ${childName}'s bedtime to ${bedTime}`)
-          .card(simpleCard('Add child to bedtime fairy', `Added bedtime for ${childName} at ${bedTime}`))
+          .say(`OK, I have set ${childName}'s bedtime to ${readTime}`)
+          .card(simpleCard('Add child to bedtime fairy', `Added bedtime for ${childName} at ${readTime}`))
           .send()
       })
       .catch((error) => {

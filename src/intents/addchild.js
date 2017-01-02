@@ -1,7 +1,7 @@
 'use strict'
 
 const criteria = {
-  'slots': {'member': 'FAMILY_MEMBER'},
+  'slots': {'MEMBER': 'FAMILY_MEMBER'},
   'utterances': [
     '{|please} add {a |} {new |} {child|person}',
     '{|please} add my {MEMBER} {bedtime |}'

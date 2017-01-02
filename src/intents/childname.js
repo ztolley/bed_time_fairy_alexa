@@ -7,7 +7,7 @@ const criteria = {
 
 function action (req, res) {
   // see if we are in a flow by checking session.currentJourney
-  if (req.data.session.journeyName !== 'ADDCHILD') {
+  if (req.session('journeyName') !== 'ADDCHILD') {
     res.fail('Not currently adding a bed time')
     return
   }
