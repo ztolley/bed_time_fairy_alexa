@@ -42,6 +42,7 @@ setBedTime	his bedtime is {BEDTIME}
 setBedTime  {BEDTIME}
 getBedTime	When is {CHILDNAME} bed time
 getBedTime	When does {CHILDNAME} go to bed
+getBedTime  What times does {CHILDNAME} go to bed
 isItBedTime	Is it {CHILDNAME} bed time yet
 isItBedTime	Is it {CHILDNAME} bed time
 isItBedTime	Is it {CHILDNAME} time for bed yet

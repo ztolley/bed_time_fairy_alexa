@@ -1,4 +1,6 @@
 'use strict'
+
+const winston = require('winston')
 const childDataHelper = require('../data/childdatahelper')
 const nameUtils = require('../lib/nameutils')
 const simpleCard = require('../lib/cardutils').simpleCard
@@ -35,11 +37,19 @@ function action (req, res) {
           .send()
       })
       .catch((error) => {
-        console.log(error)
+        if (error.message) {
+          winston.error(error.message)
+        } else {
+          winston.error(error)
+        }
         nothingFound(res, childName, question)
       })
   } catch (error) {
-    console.log(error)
+    if (error.message) {
+      winston.error(error.message)
+    } else {
+      winston.error(error)
+    }
     nothingFound(res, childName, question)
   }
 

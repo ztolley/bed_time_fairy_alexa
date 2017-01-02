@@ -1,5 +1,6 @@
 'use strict'
 
+const winston = require('winston')
 const simpleCard = require('../lib/cardutils').simpleCard
 const childDataHelper = require('../data/childdatahelper')
 const criteria = {
@@ -18,8 +19,12 @@ function action (req, res) {
         .card(simpleCard(question, 'I have removed all the children from my bed times.'))
         .send()
     })
-    .catch((e) => {
-      console.log(e)
+    .catch((error) => {
+      if (error.message) {
+        winston.error(error.message)
+      } else {
+        winston.error(error)
+      }
       res
         .say('Sorry, not sure why but I am unable to do that right now.')
         .card(question, 'Sorry, not sure why but I am unable to do that right now.')

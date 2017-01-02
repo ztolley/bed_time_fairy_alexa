@@ -1,5 +1,6 @@
 'use strict'
 
+const winston = require('winston')
 const childDataHelper = require('../data/childdatahelper')
 const timeUtils = require('../lib/timeutils')
 const criteria = {
@@ -69,7 +70,11 @@ function action (req, res) {
 }
 
 function handleError (error, res) {
-  console.log(error)
+  if (error.message) {
+    winston.error(error.message)
+  } else {
+    winston.error(error)
+  }
   res
     .shouldEndSession(true)
     .say("I'm sorry, but for some reason I am unable to do that right now. I've let someone know, hopefully they can fix it")

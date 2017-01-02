@@ -16,10 +16,10 @@ archive.on('error', function(err) {
 
 archive.pipe(output);
 
-archive.directory('data', true, { date: new Date() });
-archive.directory('intents', true, { date: new Date() });
+archive.directory('src/data', true, { date: new Date() });
+archive.directory('src/intents', true, { date: new Date() });
 archive.directory('node_modules', true, { date: new Date() });
-archive.directory('lib', true, { date: new Date() });
+archive.directory('src/lib', true, { date: new Date() });
 archive.file('index.js', { date: new Date() });
 archive.file('package.json', { date: new Date() });
 

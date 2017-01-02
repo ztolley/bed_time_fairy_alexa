@@ -1,5 +1,7 @@
 'use strict'
+
 const ErrorWithCode = require('../lib/errorwithcode')
+const winston = require('winston')
 
 let dynasty = require('dynasty')({region: 'eu-west-1'})
 let BEDTIMEFAIRY_DATA_TABLE_NAME = 'bedtimefairy'
@@ -209,7 +211,7 @@ function dropTable () {
     .then(() => {
     })
     .catch((error) => {
-      console.log(error)
+      winston.error(error.message)
     })
 }
 

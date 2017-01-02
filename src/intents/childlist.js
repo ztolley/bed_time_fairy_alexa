@@ -1,5 +1,6 @@
 'use strict'
 
+const winston = require('winston')
 const childDataHelper = require('../data/childdatahelper')
 const timeUtils = require('../lib/timeutils')
 const criteria = {
@@ -23,7 +24,7 @@ function action (req, res) {
       res.send()
     })
     .catch((e) => {
-      console.log(e)
+      winston.error(e.message)
       let prompt = generateNoChildList()
       res.say(prompt).reprompt(prompt).shouldEndSession(true)
       res.send()

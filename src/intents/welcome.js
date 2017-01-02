@@ -1,5 +1,6 @@
 'use strict'
 
+const winston = require('winston')
 const childDataHelper = require('../data/childdatahelper')
 
 function welcome (req, res) {
@@ -20,7 +21,11 @@ function welcome (req, res) {
         return
       }
 
-      console.log(error)
+      if (error.message) {
+        winston.error(error.message)
+      } else {
+        winston.error(error)
+      }
       let prompt = 'Welcome to bedtime fairy. Something is acting weird, but someones working on it.'
       res.say(prompt).reprompt(prompt).shouldEndSession(true)
       res.send()

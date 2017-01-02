@@ -2,7 +2,7 @@
 
 function simpleCard (title, content) {
   return {
-    type: 'simple',
+    type: 'Simple',
     title,
     content
   }
